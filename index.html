@@ -3,37 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <title>For You ❤️</title>
+
 <style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
-    font-family: Arial, sans-serif;
-    text-align:center;
-    background:#fff5f8;
-    padding-top:100px;
+    font-family:Arial,sans-serif;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#ffd1ff,#ffdde1);
+    background-size:400% 400%;
+    animation:gradientBG 10s ease infinite;
 }
+
+/* Animated background */
+@keyframes gradientBG{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+/* Floating hearts */
+.heart{
+    position:absolute;
+    color:rgba(255,255,255,0.8);
+    animation:float 8s linear infinite;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+    to{
+        transform:translateY(-100px);
+        opacity:1;
+    }
+}
+
 .gift{
-    font-size:80px;
+    font-size:100px;
     cursor:pointer;
+    animation:bounce 1.5s infinite;
 }
-.message{
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-15px)}
+}
+
+.gift-text{
+    text-align:center;
+    color:white;
+    font-size:22px;
+    margin-top:20px;
+    text-shadow:0 0 10px rgba(0,0,0,.3);
+}
+
+/* Modal */
+.modal{
     display:none;
-    margin-top:30px;
-    font-size:24px;
-    color:#e91e63;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+.modal-content{
+    max-width:90%;
+    max-height:90%;
+    border-radius:20px;
+    overflow:hidden;
+    animation:zoomIn .6s ease;
+}
+
+.modal-content img{
+    width:100%;
+    height:auto;
+    display:block;
+}
+
+@keyframes zoomIn{
+    from{
+        transform:scale(.6);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:white;
+    font-size:40px;
+    cursor:pointer;
 }
 </style>
 </head>
+
 <body>
 
-<div class="gift" onclick="showMessage()">🎁</div>
+<!-- Floating Hearts -->
+<div class="heart" style="left:10%;font-size:25px;">❤️</div>
+<div class="heart" style="left:30%;font-size:20px;animation-delay:2s;">💖</div>
+<div class="heart" style="left:50%;font-size:30px;animation-delay:4s;">❤️</div>
+<div class="heart" style="left:70%;font-size:22px;animation-delay:1s;">💕</div>
+<div class="heart" style="left:90%;font-size:26px;animation-delay:3s;">❤️</div>
 
-<div class="message" id="msg">
-🎉 I hope you get a positive response from home.<br><br>
-It would make me happier than anyone else. ❤️
+<div>
+    <div class="gift" onclick="openGift()">🎁</div>
+    <div class="gift-text">
+        Tap the Gift ❤️
+    </div>
+</div>
+
+<!-- Image Popup -->
+<div id="giftModal" class="modal">
+    <span class="close" onclick="closeGift()">&times;</span>
+
+    <div class="modal-content">
+        <!-- Replace with your generated image -->
+        <img src="romantic-image.png" alt="For You">
+    </div>
 </div>
 
 <script>
-function showMessage() {
-    document.getElementById("msg").style.display = "block";
+function openGift(){
+    document.getElementById("giftModal").style.display="flex";
+
+    setTimeout(()=>{
+        alert(
+`🎉 I hope you get a positive response from home.
+
+It would make me happier than anyone else. ❤️
+
+Waiting for the day to meet you... ❤️`
+        );
+    },500);
+}
+
+function closeGift(){
+    document.getElementById("giftModal").style.display="none";
 }
 </script>
 
